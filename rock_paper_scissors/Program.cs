@@ -4,32 +4,38 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Console.Write("Rock, Paper, or Scissors: ");
-        string? playerItemName = Console.ReadLine();
-
-        if (string.IsNullOrWhiteSpace(playerItemName))
-            return;
-
         Dictionary<string, int> gameItems = GetGameItems();
 
-        if (!gameItems.TryGetValue(playerItemName.ToLower(), out int playerValue))
-            return;
+        string? playerChoice = string.Empty;
 
-        int compValue = new Random().Next(-1, 2);
+        do
+        {
+            Console.Write("Write Rock, Paper, Scissors or Exit: ");
+            playerChoice = Console.ReadLine()?.ToLower() ?? string.Empty;
 
-        Console.WriteLine(playerValue);
-        Console.WriteLine(compValue);
+            if ("exit" == playerChoice)
+            {
+                Console.WriteLine("Exit game");
+                return;
+            }
 
-        int compareResult = CompareValue(playerValue, compValue);
+            if (!gameItems.TryGetValue(playerChoice.ToLower(), out int playerValue))
+            {
+                Console.WriteLine("Bad command.");
+                continue;
+            }
 
-        Console.WriteLine(compareResult);
+            int compValue = new Random().Next(-1, 2);
+            int compareResult = CompareValue(playerValue, compValue);
 
-        if (compareResult == 2)
-            Console.WriteLine("It's a draw");
-        else if (compareResult == playerValue)
-            Console.WriteLine("You won");
-        else
-            Console.WriteLine("Computer won");
+            if (compareResult == 2)
+                Console.WriteLine("It's a draw");
+            else if (compareResult == playerValue)
+                Console.WriteLine("You won !!!");
+            else
+                Console.WriteLine("Computer won");
+
+        } while (true);
     }
 
     static Dictionary<string, int> GetGameItems()
