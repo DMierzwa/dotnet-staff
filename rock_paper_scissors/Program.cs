@@ -2,16 +2,15 @@
 
 internal class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         Dictionary<string, int> gameItems = GetGameItems();
 
-        string? playerChoice = string.Empty;
-
-        do
+        while (true)
         {
             Console.Write("Write Rock, Paper, Scissors or Exit: ");
-            playerChoice = Console.ReadLine()?.ToLower() ?? string.Empty;
+
+            string? playerChoice = Console.ReadLine()?.ToLower() ?? string.Empty;
 
             if ("exit" == playerChoice)
             {
@@ -34,17 +33,17 @@ internal class Program
                 Console.WriteLine("You won !!!");
             else
                 Console.WriteLine("Computer won");
-
-        } while (true);
+        }
     }
 
     static Dictionary<string, int> GetGameItems()
     {
-        Dictionary<string, int> dict = new();
-
-        dict.Add("paper", -1);
-        dict.Add("rock", 0);
-        dict.Add("scissors", 1);
+        Dictionary<string, int> dict = new()
+        {
+            { "paper", -1 },
+            { "rock", 0 },
+            { "scissors", 1 }
+        };
 
         return dict;
     }
